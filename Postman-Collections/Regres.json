@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "e8d5f22c-ddcb-4128-b806-a189d4545b67",
+		"name": "Regres",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Onboarding",
+			"item": [
+				{
+					"name": "Registration",
+					"item": [
+						{
+							"name": "Register",
+							"id": "f80b24ff-390c-42d2-9119-583a5751072a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"string\",\n  \"email\": \"string\",\n  \"password\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseUrl}}register"
+							},
+							"response": []
+						}
+					],
+					"id": "ff3da6b8-a615-4f5a-9964-04b499a3f61d"
+				}
+			],
+			"id": "056e1634-7a6e-4830-80ad-4621de90df79"
+		},
+		{
+			"name": "Get All Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dfa60492-6bbd-4745-9de2-726d424823b7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"pm.test(\"ResponseBody contains data as an Array\", function () {",
+							"    pm.expect(pm.response.json().data).to.be.an('array');",
+							"});",
+							"",
+							"const jsonData = pm.response.json()",
+							"pm.test(\"Page to be a number\", function (){",
+							"pm.expect(typeof jsonData.page).to.eql(\"number\")",
+							"})",
+							"",
+							"pm.test(\"data has a property name and it is a string\", function (){",
+							"    pm.expect(typeof jsonData.data[0].name).to.eql(\"string\")",
+							"})",
+							"",
+							"pm.test(\"data has a property name and it is a string\", function (){",
+							"    pm.expect(typeof jsonData.data[0].name).to.eql(\"string\")",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "226fe0dd-10e6-403a-82a5-2695f03a259d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}{Resource}?page=2&per_page=3",
+					"host": [
+						"{{BaseUrl}}{Resource}"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "per_page",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "bdfee8a9-0fd5-4bbd-a619-e54447a46491",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6bd91d78-2475-4b4b-af41-c4c3cdb2784d",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUrl",
+			"value": "https://reqres.in/api/",
+			"type": "string"
+		}
+	]
+}
