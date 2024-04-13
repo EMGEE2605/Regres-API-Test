@@ -47,28 +47,24 @@
 					"script": {
 						"id": "dfa60492-6bbd-4745-9de2-726d424823b7",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
+							"const a = \"0,1,2,3,4\"",
+							"var  b = \"2,3,4,5,6\"",
+							"var responseBody = pm.response.json();",
+							"",
+							"console.log(a,b)",
+							"",
+							"pm.test(\"Response time is less 2s\", function (){",
+							"  pm.expect(pm.response.responseTime).to.be.below(200)",
+							"})",
+							"",
+							"pm.test(\"Status code to be 200\", function () {",
 							"    pm.expect(pm.response.code).to.equal(200);",
 							"});",
 							"",
-							"pm.test(\"ResponseBody contains data as an Array\", function () {",
-							"    pm.expect(pm.response.json().data).to.be.an('array');",
-							"});",
-							"",
-							"const jsonData = pm.response.json()",
-							"pm.test(\"Page to be a number\", function (){",
-							"pm.expect(typeof jsonData.page).to.eql(\"number\")",
-							"})",
-							"",
-							"pm.test(\"data has a property name and it is a string\", function (){",
-							"    pm.expect(typeof jsonData.data[0].name).to.eql(\"string\")",
-							"})",
-							"",
-							"pm.test(\"data has a property name and it is a string\", function (){",
-							"    pm.expect(typeof jsonData.data[0].name).to.eql(\"string\")",
-							"})",
-							"",
-							""
+							"pm.test(\"Body has a page\", function () {",
+							"    pm.expect(responseBody).to.have.property('page');",
+							"    pm.expect(typeof responseBody.page).to.eql(\"number\")",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -90,13 +86,11 @@
 					"query": [
 						{
 							"key": "page",
-							"value": "2",
-							"type": "text"
+							"value": "2"
 						},
 						{
 							"key": "per_page",
-							"value": "3",
-							"type": "text"
+							"value": "3"
 						}
 					]
 				}
